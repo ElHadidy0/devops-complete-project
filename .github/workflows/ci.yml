@@ -29,3 +29,4 @@ jops:
       - name: Test docker image
         run: |
           docker build -t ecom-app:test ./app
+# Trigger CI workflow update
