@@ -24,7 +24,7 @@ jobs:
 
       - name: Run Test
         run: |
-          pytest app/test-app.py
+          pytest app/test_app.py
 
       - name: Test docker image
         run: |
