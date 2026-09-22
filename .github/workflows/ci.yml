@@ -1,0 +1,31 @@
+name: ecom-workflow
+
+on: 
+  push:
+    branches: 
+      - main 
+jops: 
+  example-job: 
+    runs-on: ubuntu-latest 
+    steps: 
+      - name: Chekout repository 
+        uses: actions/chekout@v4
+
+      - name: Set up Python 
+        uses: actions/python@v5
+        with: 
+          python-version: "3.11"
+
+      - name: install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest
+          pip install app/requirements.txt
+
+      - name: Run Test
+        run: |
+          pytest app/test-app.py
+
+      - name: Test docker image
+        run: |
+          docker build -t ecom-app:test ./app
