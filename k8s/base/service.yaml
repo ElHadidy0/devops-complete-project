@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ecom-app-service
+  namespace: ecom-app
+  labels:
+    app: ecom-app
+spec:
+  type: ClusterIP
+  selector:
+    app: ecom-app
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 5678

@@ -1,0 +1,7 @@
+apiversion: v1
+kind: Namespace
+metadata: 
+  name: ecom-app
+  labels: 
+    environment: local-dev
+    project: devops-ecom

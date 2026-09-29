@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ecom-app-deployment
+  namespace: ecom-app
+  labels: 
+    app: ecom-app
+spec:
+  replicas: 2
+  selector: 
+    matchlabels:
+      app: ecom-app
+  template: 
+    metadata:
+      labels:
+        app: ecom-app
+    spec: 
+      containers:
+        - name: ecom-app-container
+          image: hashicorp/http-echo:latest
+          args:
+            - "-text=E-commerce Microservice is Running!"
+          ports: 
+            - containerPort: 5678
+          envFrom:
+            - configMapRef:
+                name: app-config
+            - secretRef:
+                name: app-secret
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "100m"
+            limits:
+              memory: "128Mi"
+              cpu: "250m"
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 5678
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 5678
+            initialDelaySeconds: 3
+            periodSeconds: 5
